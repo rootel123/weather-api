@@ -14,38 +14,47 @@ const weatherIcon = {
   "01": {
     textColor: "text-red-500",
     icon: <MdOutlineWbSunny size={120} />,
+    text: "해",
   },
   "02": {
     textColor: "text-orange-500",
     icon: <BsCloudSunFill size={120} />,
+    text: "구름 조금",
   },
   "03": {
     textColor: "text-blue-300",
     icon: <IoCloudSharp size={120} />,
+    text: "흐림",
   },
   "04": {
     textColor: "text-current",
     icon: <BsFillCloudsFill size={120} />,
+    text: "구름 많음",
   },
   "09": {
     textColor: "text-cyan-500",
     icon: <FaCloudShowersHeavy size={120} />,
+    text: "비 조금",
   },
   10: {
     textColor: "text-blue-800",
     icon: <FaCloudSunRain size={120} />,
+    text: "비",
   },
   11: {
     textColor: "text-yellow-500",
     icon: <MdThunderstorm size={120} />,
+    text: "번개",
   },
   13: {
     textColor: "text-indigo-300",
     icon: <BsSnow2 size={120} />,
+    text: "눈",
   },
   50: {
     textColor: "text-neutral-500",
     icon: <RiMistFill size={120} />,
+    text: "안개",
   },
 };
 
@@ -63,7 +72,7 @@ const App = () => {
 
   const getWeather = async () => {
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=1b8a959ace172905e11ad6ade7773992&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`
     );
 
     setWeatherData(response.data);
@@ -87,6 +96,9 @@ const App = () => {
           }`}
         >
           {weatherIcon[weatherData.weather[0].icon.substring(0, 2)].icon}
+          <div>
+            {weatherIcon[weatherData.weather[0].icon.substring(0, 2)].text}
+          </div>
           <div>
             {weatherData.name}, {weatherData.main.temp}
           </div>
